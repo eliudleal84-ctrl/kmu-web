@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
-import { Mail, MapPin, Phone, Clock, Facebook, Instagram, Linkedin, MessageCircle, Send, Youtube } from "lucide-react";
+import { Mail, MapPin, Phone, Clock, Facebook, Instagram, Linkedin, MessageCircle, Youtube } from "lucide-react";
+import ContactForm from "@/components/contact/ContactForm";
 
 export default async function ContactPage() {
     const settings = await prisma.siteSettings.findUnique({
@@ -162,46 +163,7 @@ export default async function ContactPage() {
                     </div>
 
                     {/* Columna Derecha: Formulario */}
-                    <div className="bg-card border border-border rounded-2xl p-8 shadow-sm h-fit sticky top-24">
-                        <h2 className="text-2xl font-bold mb-6">Envíanos un Mensaje</h2>
-                        <form className="space-y-4">
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <label htmlFor="name" className="text-sm font-medium">Nombre</label>
-                                    <input id="name" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" placeholder="Tu nombre" />
-                                </div>
-                                <div className="space-y-2">
-                                    <label htmlFor="lastname" className="text-sm font-medium">Apellido</label>
-                                    <input id="lastname" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" placeholder="Tu apellido" />
-                                </div>
-                            </div>
-
-                            <div className="space-y-2">
-                                <label htmlFor="email" className="text-sm font-medium">Email</label>
-                                <input id="email" type="email" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" placeholder="correo@ejemplo.com" />
-                            </div>
-
-                            <div className="space-y-2">
-                                <label htmlFor="subject" className="text-sm font-medium">Asunto</label>
-                                <select id="subject" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
-                                    <option value="" disabled selected>Selecciona una opción</option>
-                                    <option value="terapia">Agendar Cita de Terapia</option>
-                                    <option value="empresa">Cotización Empresarial</option>
-                                    <option value="curso">Informes sobre Cursos</option>
-                                    <option value="otro">Otro motivo</option>
-                                </select>
-                            </div>
-
-                            <div className="space-y-2">
-                                <label htmlFor="message" className="text-sm font-medium">Mensaje</label>
-                                <textarea id="message" className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" placeholder="Escribe aquí tus dudas o comentarios..." />
-                            </div>
-
-                            <button className="inline-flex h-12 items-center justify-center rounded-md bg-primary px-8 text-sm font-bold text-primary-foreground shadow transition-colors hover:bg-primary/90 w-full gap-2">
-                                Enviar Mensaje <Send className="h-4 w-4" />
-                            </button>
-                        </form>
-                    </div>
+                    <ContactForm />
                 </div>
             </section>
 

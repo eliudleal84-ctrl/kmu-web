@@ -12,13 +12,15 @@ import {
     Video,
     LogOut,
     ExternalLink,
-    MessageSquare
+    MessageSquare,
+    Mail
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { logout } from "@/app/dashboard/logout-action";
 
 const sidebarItems = [
     { name: "Inicio", href: "/dashboard", icon: LayoutDashboard },
+    { name: "Mensajes", href: "/dashboard/messages", icon: Mail },
     { name: "Artículos y Blog", href: "/dashboard/blog", icon: BookOpen },
     { name: "Cursos y Talleres", href: "/dashboard/courses", icon: Calendar },
     { name: "Testimonios", href: "/dashboard/testimonials", icon: MessageSquare },
