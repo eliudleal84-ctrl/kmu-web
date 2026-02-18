@@ -17,7 +17,7 @@ export async function GET() {
         }
 
         const data = await resend.emails.send({
-            from: 'KMJ Test <onboarding@resend.dev>',
+            from: 'KMJ Test <notificaciones@kmjgestalt.com>',
             to: ['georche777@gmail.com'],
             subject: 'Prueba de Emails KMJ',
             html: '<p>Este es un correo de prueba para verificar la configuración de Resend.</p>'

@@ -36,7 +36,7 @@ export async function POST(request: Request) {
         // 2. Send email notification via Resend
         try {
             await resend.emails.send({
-                from: 'KMJ Web <onboarding@resend.dev>',
+                from: 'KMJ Web <notificaciones@kmjgestalt.com>',
                 to: ['georche777@gmail.com'],
                 subject: `Nuevo Mensaje Web: ${emailSubject}`,
                 react: ContactEmail({
