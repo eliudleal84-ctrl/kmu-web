@@ -3,7 +3,10 @@ import { Save, Settings, Phone, Mail, Share2, Layout } from "lucide-react";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export default async function SettingsPage() {
+export default async function SettingsPage(props: { searchParams: Promise<{ updated?: string }> }) {
+    const searchParams = await props.searchParams;
+    const isUpdated = searchParams.updated === "true";
+
     // Obtener settings (o crear default si no existen)
     const settings = await prisma.siteSettings.upsert({
         where: { id: 1 },
@@ -60,7 +63,7 @@ export default async function SettingsPage() {
         revalidatePath("/");
         revalidatePath("/dashboard/settings");
         // Forzamos un redirect al mismo sitio para asegurar que el usuario vea un "refresco"
-        redirect("/dashboard/settings");
+        redirect("/dashboard/settings?updated=true");
     }
 
     return (
@@ -71,6 +74,13 @@ export default async function SettingsPage() {
                 </h1>
                 <p className="text-muted-foreground text-lg">Administra la información global y el contenido del sitio.</p>
             </div>
+
+            {isUpdated && (
+                <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                    <strong className="font-bold">¡Éxito! </strong>
+                    <span className="block sm:inline">La configuración se ha guardado correctamente.</span>
+                </div>
+            )}
 
             <form action={updateSettings} className="grid lg:grid-cols-2 gap-12">
 
