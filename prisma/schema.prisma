@@ -1,0 +1,113 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x", "debian-openssl-1.1.x", "debian-openssl-3.0.x", "linux-musl", "linux-musl-openssl-3.0.x"]
+  engineType = "binary"
+}
+
+// 1. Usuarios (Administradores del Panel)
+model User {
+  id        String   @id @default(uuid())
+  email     String?  @unique
+  username  String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 2. Blog / Artículos
+model Article {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique // URL amigable (ej. manejo-de-estres)
+  excerpt     String?  @db.Text // Resumen corto para tarjetas
+    content     String   @db.Text // Contenido completo (HTML o Markdown)
+  coverImage  String?  @db.Text // URL de la imagen principal
+  category    String   // Ej. "Liderazgo", "Salud Emocional"
+  published   Boolean  @default(false)
+  authorId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Nuevos campos
+  type        String   @default("ARTICLE")
+  resourceUrl String?  @db.Text
+}
+
+// 3. Cursos y Talleres (Calendario)
+model Course {
+  id          String   @id @default(uuid())
+  title       String
+  description String?  @db.Text
+  date        DateTime
+  location    String?
+  price       Float?
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// 4. Testimonios
+model Testimonial {
+  id        String   @id @default(uuid())
+  name      String
+  role      String?
+  company   String?
+  content   String   @db.Text
+  rating    Int      @default(5)
+  section   String   @default("General") // "Empresas", "Terapia", "Cursos"
+  imageUrl  String?
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// 5. Contactos (Opcional - Buzón de entrada)
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  subject   String?
+  message   String   @db.Text
+  createdAt DateTime @default(now())
+  read      Boolean  @default(false)
+}
+
+model SiteSettings {
+  id            Int      @id @default(1)
+  whatsapp      String?
+  contactEmail  String?
+  address       String?  @db.Text
+  facebookUrl   String?  @db.Text
+  youtubeUrl    String?  @db.Text
+  instagramUrl  String?  @db.Text
+  linkedinUrl   String?  @db.Text
+  workingHours  String?  @db.Text
+  updatedAt     DateTime @updatedAt
+}
+
+model PageContent {
+  id           String @id @default("main")
+  heroTitle    String @default("Consultoría Gestáltica y Desarrollo Humano") @db.Text
+  heroSubtitle String @default("Potenciamos el talento humano y el bienestar emocional de tu organización.") @db.Text
+  aboutTitle   String @default("Nuestra Misión") @db.Text
+    aboutText    String @default("En KMJ Consultoría, creemos en el potencial ilimitado del ser humano...") @db.Text
+    visionText   String @default("Ser un referente en el norte de México en el desarrollo humano aplicado al ámbito organizacional y personal, integrando experiencia industrial y psicoterapia gestáltica para generar culturas laborales más conscientes, relaciones más saludables y procesos de transformación profunda en individuos y empresas.") @db.Text
+    misionText   String @default("Brindar acompañamiento profesional a personas, líderes y organizaciones mediante consultoría organizacional, capacitación y psicoterapia Gestalt, promobiendo el desarrollo humano, la conciencia emocional y el bienestar integral desde un enfoque ético, vivencial y humanista.") @db.Text
+  updatedAt    DateTime @updatedAt
+}
+
+// 6. Suscriptores del Newsletter
+model Subscriber {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+  active    Boolean  @default(true)
+}
