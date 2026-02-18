@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, UserPlus, Mail, Lock, User } from "lucide-react";
 import prisma from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import bcrypt from "bcryptjs";
 
@@ -13,6 +14,10 @@ export default function NewUserPage() {
         const username = formData.get("username") as string;
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
+
+        if (!name || !username || !email || !password) {
+            return;
+        }
 
         // Hash password before saving
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -28,10 +33,12 @@ export default function NewUserPage() {
             });
         } catch (error) {
             // Handle duplicate email etc.
-            console.error(error);
+            console.error("Error creating user:", error);
+            // En un caso real, devolveríamos el error al cliente
             return;
         }
 
+        revalidatePath("/dashboard/users");
         redirect("/dashboard/users");
     }
 
