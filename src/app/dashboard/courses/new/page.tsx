@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft, Save, Calendar, MapPin, DollarSign, FileText } from "lucide-react";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export default function NewCoursePage() {
 
@@ -26,6 +27,9 @@ export default function NewCoursePage() {
             },
         });
 
+        revalidatePath("/courses", "layout");
+        revalidatePath("/", "layout");
+        revalidatePath("/dashboard/courses");
         redirect("/dashboard/courses");
     }
 

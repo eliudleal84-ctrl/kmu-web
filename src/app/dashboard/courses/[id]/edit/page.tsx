@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft, Save, Calendar, MapPin, DollarSign, FileText } from "lucide-react";
 import prisma from "@/lib/prisma";
 import { redirect, notFound } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 interface EditCoursePageProps {
     params: Promise<{
@@ -45,6 +46,9 @@ export default async function EditCoursePage({ params }: EditCoursePageProps) {
             },
         });
 
+        revalidatePath("/courses", "layout");
+        revalidatePath("/", "layout");
+        revalidatePath("/dashboard/courses");
         redirect("/dashboard/courses");
     }
 

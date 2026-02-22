@@ -13,6 +13,8 @@ export default async function CoursesAdminPage() {
         "use server";
         const id = formData.get("id") as string;
         await prisma.course.delete({ where: { id } });
+        revalidatePath("/courses", "layout");
+        revalidatePath("/", "layout");
         revalidatePath("/dashboard/courses");
     }
 
