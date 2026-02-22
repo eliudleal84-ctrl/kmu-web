@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft, Save, Image as ImageIcon, Video, FileText, Download } from "lucide-react";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export default function NewArticlePage() {
 
@@ -40,6 +41,8 @@ export default function NewArticlePage() {
             },
         });
 
+        revalidatePath("/resources", "layout");
+        revalidatePath("/dashboard/blog");
         redirect("/dashboard/blog");
     }
 

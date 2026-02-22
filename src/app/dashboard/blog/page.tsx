@@ -13,6 +13,7 @@ export default async function BlogListPage() {
         "use server";
         const id = formData.get("id") as string;
         await prisma.article.delete({ where: { id } });
+        revalidatePath("/resources", "layout");
         revalidatePath("/dashboard/blog");
         redirect("/dashboard/blog");
     }

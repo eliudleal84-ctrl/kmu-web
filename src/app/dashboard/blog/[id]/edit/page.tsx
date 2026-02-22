@@ -3,6 +3,7 @@ import { ArrowLeft, Save, Image as ImageIcon, Video, FileText, Download } from "
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 interface EditArticlePageProps {
     params: Promise<{
@@ -55,6 +56,8 @@ export default async function EditArticlePage({ params }: EditArticlePageProps) 
             },
         });
 
+        revalidatePath("/resources", "layout");
+        revalidatePath("/dashboard/blog");
         redirect("/dashboard/blog");
     }
 
