@@ -22,7 +22,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
     // Función para extraer el ID de YouTube
     const getYouTubeId = (url: string) => {
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        // Regex mejorada para soportar shorts, embed, watch?, etc.
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|shorts\/)([^#\&\?]*).*/;
         const match = url.match(regExp);
         return (match && match[2].length === 11) ? match[2] : null;
     };
