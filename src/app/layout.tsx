@@ -18,6 +18,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "KMJ Consultoría Gestáltica",
   description: "Consultoría Gestáltica y Desarrollo Humano",
+  verification: {
+    google: "9wASKjApgVyelW7uXWyGH8BJ72hD51wvHneAXV7BuG4",
+  },
 };
 
 export default function RootLayout({
