@@ -2,6 +2,14 @@ import prisma from "@/lib/prisma";
 import { Calendar, MapPin, Clock, DollarSign, ArrowRight, BookOpen } from "lucide-react";
 import Link from "next/link";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: '/courses',
+  },
+};
+
 export default async function CoursesPage() {
     // 1. Fetch data
     const [courses, settings] = await Promise.all([

@@ -1,5 +1,13 @@
 import { CheckCircle2 } from "lucide-react";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: '/services',
+  },
+};
+
 export default function ServicesPage() {
     const services = [
         {

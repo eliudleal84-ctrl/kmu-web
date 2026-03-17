@@ -5,6 +5,14 @@ import prisma from "@/lib/prisma";
 import { CredentialsModal } from "@/components/home/CredentialsModal";
 import { CourseDropdown } from "@/components/home/CourseDropdown";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: '/',
+  },
+};
+
 export default async function Home() {
   // Obtener contenido dinámico
   const pageContent = await (prisma.pageContent.findUnique({

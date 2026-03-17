@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://kmjgestalt.com"),
   title: "KMJ Consultoría Gestáltica",
   description: "Consultoría Gestáltica y Desarrollo Humano",
   verification: {

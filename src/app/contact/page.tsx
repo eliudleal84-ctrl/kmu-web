@@ -3,6 +3,14 @@ import Link from "next/link";
 import { Mail, MapPin, Phone, Clock, Facebook, Instagram, Linkedin, MessageCircle, Youtube } from "lucide-react";
 import ContactForm from "@/components/contact/ContactForm";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: '/contact',
+  },
+};
+
 export default async function ContactPage() {
     const settings = await prisma.siteSettings.findUnique({
         where: { id: 1 }
